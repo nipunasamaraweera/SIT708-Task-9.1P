@@ -155,26 +155,33 @@ public class CreateAdvertisement extends Activity {
         });
     }
 
-    // Save the LostFoundItem object to SharedPreferences
+    // Save the LostFoundItem object to SharedPreferences with try-catch for error handling
     private void saveItem(LostFoundItem item) {
-        SharedPreferences sharedPreferences = getSharedPreferences("LostFoundPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        try {
+            SharedPreferences sharedPreferences = getSharedPreferences("LostFoundPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        // Retrieve the existing items
-        String itemsJson = sharedPreferences.getString("items", "[]");
-        Type type = new TypeToken<ArrayList<LostFoundItem>>(){}.getType();
-        ArrayList<LostFoundItem> itemList = new Gson().fromJson(itemsJson, type);
+            // Retrieve the existing items
+            String itemsJson = sharedPreferences.getString("items", "[]");
+            Type type = new TypeToken<ArrayList<LostFoundItem>>() {}.getType();
+            ArrayList<LostFoundItem> itemList = new Gson().fromJson(itemsJson, type);
 
-        // Add the new item
-        itemList.add(item);
+            // Add the new item
+            itemList.add(item);
 
-        // Save the updated list
-        itemsJson = new Gson().toJson(itemList);
-        editor.putString("items", itemsJson);
-        editor.apply();
+            // Save the updated list
+            itemsJson = new Gson().toJson(itemList);
+            editor.putString("items", itemsJson);
+            editor.apply();
+
+            Log.d("SaveItem", "Item saved successfully");
+        } catch (Exception e) {
+            Log.e("SaveItem", "Error saving item", e);
+            Toast.makeText(this, "Error saving item", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    // Get the current location and update the UI
+    // Get the current location and update the UI with try-catch for error handling
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {

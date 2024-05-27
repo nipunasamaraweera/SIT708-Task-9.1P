@@ -155,7 +155,7 @@ public class CreateAdvertisement extends Activity {
         });
     }
 
-    // Save the LostFoundItem object to SharedPreferences with try-catch for error handling
+    // Save the LostFoundItem object to SharedPreferences with try-catch block for error handling
     private void saveItem(LostFoundItem item) {
         try {
             SharedPreferences sharedPreferences = getSharedPreferences("LostFoundPrefs", MODE_PRIVATE);

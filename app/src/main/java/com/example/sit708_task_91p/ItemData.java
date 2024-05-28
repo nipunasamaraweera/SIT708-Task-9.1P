@@ -1,5 +1,6 @@
 package com.example.sit708_task_91p;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,16 +43,17 @@ public class ItemData extends Activity {
     }
 
     // Retrieve data from the intent and set it to the UI elements
+    @SuppressLint("SetTextI18n")
     private void populateDataFromIntent() {
         Intent intent = getIntent();
         String title = intent.getStringExtra("TITLE");
         String description = intent.getStringExtra("DESCRIPTION");
-        String phone = intent.getStringExtra("HONE");
+        String phone = intent.getStringExtra("PHONE");
         String date = intent.getStringExtra("DATE");
         String location = intent.getStringExtra("LOCATION");
 
         textViewDetailName.setText(title);
-        textViewDetailPhone.setText("Contactor: " + phone);
+        textViewDetailPhone.setText("Contact on : " + phone);
         textViewDetailDescription.setText("Description: " + description);
         textViewDetailDate.setText("Date: " + date);
         textViewDetailLocation.setText("At " + location);
